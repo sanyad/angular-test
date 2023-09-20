@@ -1,0 +1,77 @@
+<form [formGroup]="userFormGroup">
+  <div>
+    <label [for]="'username'" class="label field-required">{{'Username:'}}</label>
+    <input [id]="'username'"
+           type="text" formControlName="username"
+           [ngClass]="{'has-error': userFormGroup.get('username')?.errors }"
+           mask="E*"
+           [patterns]="customPatterns"
+           [dropSpecialCharacters]="false">
+  </div>
+  <div>
+    <label [for]="'first_name'" class="label field-required">{{'First name:'}}</label>
+    <input [id]="'first_name'"
+           type="text"
+           formControlName="first_name"
+           mask="E*"
+           [patterns]="customPatterns"
+           [dropSpecialCharacters]="false"
+           [ngClass]="{'has-error': userFormGroup.get('first_name')?.errors }">
+  </div>
+  <div>
+    <label [for]="'last_name'" class="label field-required">{{'Last name:'}}</label>
+    <input
+      [id]="'last_name'"
+      type="text"
+      formControlName="last_name"
+      mask="E*"
+      [patterns]="customPatterns"
+      [dropSpecialCharacters]="false"
+      [ngClass]="{'has-error': userFormGroup.get('last_name')?.errors }">
+  </div>
+  <div>
+    <label [for]="'email'" class="label field-required">{{'Email:'}}</label>
+    <input [id]="'email'" type="text" formControlName="email" [ngClass]="{'has-error': userFormGroup.get('email')?.errors }">
+  </div>
+  <div>
+    <mat-form-field>
+      <mat-label>Type</mat-label>
+      <mat-select formControlName="type">
+        <mat-option *ngFor="let type of types" [value]="type.id">
+          {{type.role}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div>
+    <label [for]="'password'" class="label field-required">{{'Password:'}}</label>
+    <input [id]="'password'"
+           type="password"
+           formControlName="password"
+           (focus)="addPasswordValidator()"
+           [ngClass]="{'has-error': userFormGroup.get('password')?.errors }">
+  </div>
+  <div *ngIf="userFormGroup.get('password')?.hasError('required')" class="pass_error">
+    Поле "Пароль" обязательно для заполнения
+  </div>
+  <div *ngIf="userFormGroup.get('password')?.hasError('minLength')" class="pass_error">
+    Пароль должен содержать минимум 8 символов
+  </div>
+  <div *ngIf="userFormGroup.get('password')?.hasError('patternMismatch')" class="pass_error">
+    Пароль должен содержать хотя бы одну цифру и одну букву
+  </div>
+  <div>
+    <label [for]="'confirm_password'" class="label field-required">{{'Repeat password:'}}</label>
+    <input [id]="'confirm_password'"
+           type="password"
+           formControlName="confirm_password"
+           [ngClass]="{'has-error': userFormGroup.get('confirm_password')?.errors}">
+  </div>
+  <div *ngIf="userFormGroup.hasError('passwordMismatch', 'confirm_password')" class="pass_error">
+    Пароли не совпадают
+  </div>
+  <div class="buttons">
+    <button mat-raised-button [color]="'accent'" (click)="cancelEmit.emit()">Cancel</button>
+    <button mat-raised-button [color]="'primary'" [disabled]="userFormGroup.invalid" (click)="saveUser()">Save</button>
+  </div>
+</form>

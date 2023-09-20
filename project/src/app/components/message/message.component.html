@@ -1,0 +1,9 @@
+<div *ngIf="message" class="modal__system-alert" [ngClass]="type" [@flyInOut]="'in'">
+  <mat-icon>error</mat-icon>
+  <div class="error-wrapper">
+    <div>{{type === 'error' ?'Ошибка' : 'Успешно' }}</div>
+    <span style="text-transform: lowercase;">
+      {{message}}
+    </span>
+  </div>
+</div>

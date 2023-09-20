@@ -1,0 +1,18 @@
+<div class="container">
+  <button mat-raised-button color="primary" (click)="createUser()">{{'Create User'}}</button>
+  <div class="list">
+    <div *ngFor="let user of list; let i = index, let first = first" [ngClass]="{'header': first}" class="item">
+      <div class="item__username">{{first ? 'username' : user.username}}</div>
+      <div class="item__firstname">{{first ? 'first name' : user.first_name}}</div>
+      <div class="item__lastname">{{first ? 'last name' : user.last_name}}</div>
+      <div class="item__email">{{first ? 'email' : user.email}}</div>
+      <div class="item__type">{{first ? 'type' : user.user_type}}</div>
+      <div class="item__button-group" [ngStyle]="{'visibility': first ? 'hidden' : 'visible'}">
+        <button mat-button (click)="operation('edit', i, user)"><mat-icon>edit</mat-icon></button>
+        <button mat-button (click)="operation('delete', i)"><mat-icon>delete</mat-icon></button>
+      </div>
+    </div>
+    <div class="item footer"></div>
+  </div>
+</div>
+

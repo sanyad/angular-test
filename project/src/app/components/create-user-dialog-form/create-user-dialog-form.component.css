@@ -1,0 +1,6 @@
+::ng-deep.request-form-dialog-panel {
+  width: 400px;
+}
+::ng-deep.mat-dialog-container {
+  padding: 0;
+}
